@@ -1,0 +1,12 @@
+{
+  "name": "git",
+  "version": "1.0.0",
+  "description": "DESN2000 - 2024 (Fair Natural Language Model)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}
