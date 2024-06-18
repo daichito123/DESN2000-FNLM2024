@@ -1,3 +1,5 @@
+f"Hello Mr computer can you please make me a {plot_vars} which will hopefully graph {x_vars} against {y_vars}"
+f"Make {plot_vars} with {y_vars} on y axis and {x_vars} on x axis"
 f"Could you generate a {plot_vars} that plots {x_vars} versus {y_vars}"
 f"Please make a {plot_vars} with {x_vars} on the xaxis and {y_vars} on the yaxis"
 f"I need a {plot_vars} depicting the relationship between {x_vars} and {y_vars}"
