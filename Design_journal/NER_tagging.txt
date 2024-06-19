@@ -1,0 +1,21 @@
+Tags we will use to train our models
+NER_tags = [
+  'O',
+  'B-Plot',
+  'I-Plot',
+  'B-X_ax',
+  'I-X_ax',
+  'B-Y_ax',
+  'I-Y_ax'
+]
+
+Numerical representation of tags (Numerically encoded tags)
+num_NER_tags = {
+  'O': 0,
+  'B-Plot': 1,
+  'I-Plot': 2,
+  'B-X_ax': 3,
+  'I-X_ax': 4,
+  'B-Y_ax': 5,
+  'I-Y_ax': 6
+}
