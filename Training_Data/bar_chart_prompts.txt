@@ -1,0 +1,2 @@
+Using the data in the attached CSV file, create me a bar chart comparing the GC content of the genes BRCA1 (Human) and MTHFR (Human)
+Quick! draw a bar graph which displays the number of genes associated with the AMPK signaling pathway as well as Glycolysis
