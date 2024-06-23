@@ -1,16 +1,25 @@
 import json
 from nltk.tokenize import word_tokenize
 
-from tags import scatter
+from tags import scatter, bar
 
-chart_types = ["scatter", "bar"]
+chart_types = [
+    {
+        "key": "scatter",
+        "tags": scatter
+    },
+    {
+        "key": "bar",
+        "tags": bar
+    }
+]
 
 for chart in chart_types:
     
     data = []
 
-    input_file = f"prompts/{chart}_prompts.txt"
-    output_file = f"training_data/{chart}_data.json"
+    input_file = f"prompts/{chart["key"]}_prompts.txt"
+    output_file = f"data/{chart["key"]}_data.json"
 
     with open(input_file, 'r') as f_in:
         for i, prompt in enumerate(f_in):
@@ -25,9 +34,8 @@ for chart in chart_types:
                 "NER_TAG": ["O"] * size,
                 "NER_ENCODING": [0] * size
             }
-
-            # Change
-            tags = scatter[i]["Tokens to tag"]
+            
+            tags = chart["tags"][i]["Tokens to tag"]
 
             for t in tags:
                 try: 

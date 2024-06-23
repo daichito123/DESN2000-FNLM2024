@@ -55,10 +55,10 @@ scatter = [
                 "NER_ENCODING": [1, 2]
             }, 
             {
-                "words": "RNU4-31P",
-                "tokens": ["RNU4-31P"],
-                "NER_TAG": ["B-X_AXIS_LABEL"],
-                "NER_ENCODING": [3]
+                "words": "expression of RNU4-31P",
+                "tokens": ["expression", "of", "RNU4-31P"],
+                "NER_TAG": ["B-X_AXIS_LABEL", "I-X_AXIS_LABEL", "I-X_AXIS_LABEL"],
+                "NER_ENCODING": [3, 4, 4]
             }, 
             {
                 "words": "p-value of a SNP",
@@ -68,4 +68,65 @@ scatter = [
             }
         ]
     }
+]
+
+bar = [
+    {
+        "Line No.": 1,
+        "Tokens to tag": [
+            {
+                "words": "bar chart",
+                "tokens": ["bar", "chart"],
+                "NER_TAG": ["B-PLOT_TYPE", "I-PLOT_TYPE"],
+                "NER_ENCODING": [1, 2]
+            }, 
+            {
+                "words": "GC content",
+                "tokens": ["GC", "content"],
+                "NER_TAG": ["B-Y_AXIS_LABEL", "I-Y_AXIS_LABEL"],
+                "NER_ENCODING": [5, 6]
+            }, 
+            {
+                "words": "BRCA1",
+                "tokens": ["BRCA1"],
+                "NER_TAG": ["B-X_AXIS_LABEL"],
+                "NER_ENCODING": [3]
+            }, 
+            {
+                "words": "MTHFR",
+                "tokens": ["MTHFR"],
+                "NER_TAG": ["B-X_AXIS_LABEL"],
+                "NER_ENCODING": [3]
+            }
+        ]
+    },
+    {
+    "Line No.": 2,
+    "Tokens to tag": [
+        {
+            "words": "bar graph",
+            "tokens": ["bar", "graph"],
+            "NER_TAG": ["B-PLOT_TYPE", "I-PLOT_TYPE"],
+            "NER_ENCODING": [1, 2]
+        }, 
+        {
+            "words": "number of genes associated",
+            "tokens": ["number", "of", "genes"],
+            "NER_TAG": ["B-Y_AXIS_LABEL", "I-Y_AXIS_LABEL", "I-Y_AXIS_LABEL"],
+            "NER_ENCODING": [5, 6, 6, 6]
+        }, 
+        {
+            "words": "AMPK signalling pathway",
+            "tokens": ["AMPK", "signalling", "pathway"],
+            "NER_TAG": ["B-X_AXIS_LABEL", "I-X_AXIS_LABEL", "I-X_AXIS_LABEL"],
+            "NER_ENCODING": [3, 4, 4]
+        },
+        {
+            "words": "Glycolysis",
+            "tokens": ["Glycolysis"],
+            "NER_TAG": ["B-X_AXIS_LABEL"],
+            "NER_ENCODING": [3]
+        }
+    ]
+}
 ]

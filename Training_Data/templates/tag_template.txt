@@ -1,0 +1,23 @@
+{
+    "Line No.": 0,
+    "Tokens to tag": [
+        {
+            "words": "",
+            "tokens": [""],
+            "NER_TAG": [""],
+            "NER_ENCODING": []
+        }, 
+        {
+            "words": "",
+            "tokens": [""],
+            "NER_TAG": [""],
+            "NER_ENCODING": []
+        }, 
+        {
+            "words": "",
+            "tokens": [""],
+            "NER_TAG": [""],
+            "NER_ENCODING": []
+        }
+    ]
+}
