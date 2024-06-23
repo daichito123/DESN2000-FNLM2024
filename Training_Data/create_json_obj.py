@@ -3,34 +3,44 @@ from nltk.tokenize import word_tokenize
 
 from tags import scatter
 
-data = []
+chart_types = ["scatter", "bar"]
 
-# To do - implement ability to input different title_prompts.txt files
+for chart in chart_types:
+    
+    data = []
 
-with open('scatter_prompts.txt', 'r') as f_in:
-    for i, prompt in enumerate(f_in):
-        prompt_cleaned = prompt.strip()
-        new_data = {
-            "words": prompt_cleaned, 
-            "tokens": word_tokenize(prompt_cleaned),
-            "NER_TAG": [],
-            "NER_ENCODING": []
-        }
-        # Fix common words error
-        tags = scatter[i]["Tokens to tag"]
-        for word in new_data["tokens"]:
-            found = False
+    input_file = f"{chart}_prompts.txt"
+    output_file = f"{chart}_data.json"
+
+    with open(input_file, 'r') as f_in:
+        for i, prompt in enumerate(f_in):
+
+            prompt_cleaned = prompt.strip()
+            tokens = word_tokenize(prompt_cleaned)
+            size = len(tokens)
+
+            new_data = {
+                "words": prompt_cleaned, 
+                "tokens": tokens,
+                "NER_TAG": ["O"] * size,
+                "NER_ENCODING": [0] * size
+            }
+
+            # Change
+            tags = scatter[i]["Tokens to tag"]
+
             for t in tags:
-                if word in t["tokens"]:
-                    index = t["tokens"].index(word)
-                    new_data["NER_TAG"].append(t["NER_TAG"][index])
-                    new_data["NER_ENCODING"].append(t["NER_ENCODING"][index])
-                    found = True
-                    break
-            if not found:
-                new_data["NER_TAG"].append("O")
-                new_data["NER_ENCODING"].append(0)
-        data.append(new_data)
+                try: 
+                    # Gets the corresponding index for new_data["tokens"]
+                    index = tokens.index(t["tokens"][0])
+                    for i in range(len(t["tokens"])):
+                        new_data["NER_TAG"][index] = t["NER_TAG"][i]
+                        new_data["NER_ENCODING"][index] = t["NER_ENCODING"][i]
+                        index += 1
+                except ValueError:
+                    continue
+            
+            data.append(new_data)
 
-with open('scatter_data.json', 'w') as f_out:
-    json.dump(data, f_out, indent=4)
+    with open(output_file, 'w') as f_out:
+        json.dump(data, f_out, indent=4)
