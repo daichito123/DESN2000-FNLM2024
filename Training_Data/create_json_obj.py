@@ -9,8 +9,8 @@ for chart in chart_types:
     
     data = []
 
-    input_file = f"{chart}_prompts.txt"
-    output_file = f"{chart}_data.json"
+    input_file = f"prompts/{chart}_prompts.txt"
+    output_file = f"training_data/{chart}_data.json"
 
     with open(input_file, 'r') as f_in:
         for i, prompt in enumerate(f_in):
