@@ -1,3 +1,4 @@
 Generate a scatterplot which visualizes the relationship between GC content and Melting temperature
 Scatter the expression levels of TP53 and MDM2 from the data I have given as the input
 Investigate the relationship between the expression of RNU4-31P and the p-value of a SNP by using a scatter chart
+Id like to see the link between the expression level of TP53 in healthy samples and TP53 in cancerous samples using a scatter graph

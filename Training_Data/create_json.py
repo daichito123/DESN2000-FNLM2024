@@ -30,7 +30,7 @@ for chart in chart_types:
 
             new_data = {
                 "words": prompt_cleaned, 
-                "tokens": tokens,
+                "tokens": word_tokenize(prompt_cleaned),
                 "NER_TAG": ["O"] * size,
                 "NER_ENCODING": [0] * size
             }
@@ -41,13 +41,15 @@ for chart in chart_types:
                 try: 
                     # Gets the corresponding index for new_data["tokens"]
                     index = tokens.index(t["tokens"][0])
-                    for i in range(len(t["tokens"])):
-                        new_data["NER_TAG"][index] = t["NER_TAG"][i]
-                        new_data["NER_ENCODING"][index] = t["NER_ENCODING"][i]
-                        index += 1
                 except ValueError:
                     continue
-            
+
+                str_len = len(t["tokens"])
+                for i in range(str_len):
+                    new_data["NER_TAG"][index] = t["NER_TAG"][i]
+                    new_data["NER_ENCODING"][index] = t["NER_ENCODING"][i]
+                    index += 1
+
             data.append(new_data)
 
     with open(output_file, 'w') as f_out:
