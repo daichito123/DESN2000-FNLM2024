@@ -253,5 +253,62 @@
             1,
             2
         ]
+    },
+    {
+        "words": "Please generate a scatter plot to visualize the relationship between gene expression levels and protein concentrations",
+        "tokens": [
+            "Please",
+            "generate",
+            "a",
+            "scatter",
+            "plot",
+            "to",
+            "visualize",
+            "the",
+            "relationship",
+            "between",
+            "gene",
+            "expression",
+            "levels",
+            "and",
+            "protein",
+            "concentrations"
+        ],
+        "NER_TAG": [
+            "O",
+            "O",
+            "O",
+            "B-PLOT_TYPE",
+            "I-PLOT_TYPE",
+            "O",
+            "O",
+            "O",
+            "O",
+            "O",
+            "B-Y_AXIS_LABEL",
+            "I-Y_AXIS_LABEL",
+            "I-Y_AXIS_LABEL",
+            "O",
+            "B-X_AXIS_LABELS",
+            "I-X_AXIS_LABELS"
+        ],
+        "NER_ENCODING": [
+            0,
+            0,
+            0,
+            1,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            5,
+            6,
+            6,
+            0,
+            3,
+            4
+        ]
     }
 ]

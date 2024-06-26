@@ -90,7 +90,30 @@ scatter = [
                 "NER_ENCODING": [1, 2]
             }
         ]
-    }
+    },
+    {
+    "Line No.": 5,
+    "Tokens to tag": [
+        {
+            "words": "scatter plot",
+            "tokens": ["scatter", "plot"],
+            "NER_TAG": ["B-PLOT_TYPE", "I-PLOT_TYPE"],
+            "NER_ENCODING": [1, 2]
+        }, 
+        {
+            "words": "gene expression levels",
+            "tokens": ["gene", "expression", "levels"],
+            "NER_TAG": ["B-Y_AXIS_LABEL", "I-Y_AXIS_LABEL", "I-Y_AXIS_LABEL"],
+            "NER_ENCODING": [5, 6, 6]
+        }, 
+        {
+            "words": "protein concentrations",
+            "tokens": ["protein", "concentrations"],
+            "NER_TAG": ["B-X_AXIS_LABELS", "I-X_AXIS_LABELS"],
+            "NER_ENCODING": [3, 4]
+        }
+    ]
+}
 ]
 
 bar = [
@@ -147,6 +170,76 @@ bar = [
             {
                 "words": "Glycolysis",
                 "tokens": ["Glycolysis"],
+                "NER_TAG": ["B-X_AXIS_LABEL"],
+                "NER_ENCODING": [3]
+            }
+        ]
+    },
+    {
+        "Line No.": 3,
+        "Tokens to tag": [
+            {
+                "words": "bar graph",
+                "tokens": ["bar", "graph"],
+                "NER_TAG": ["B-PLOT_TYPE", "I-PLOT_TYPE"],
+                "NER_ENCODING": [1, 2]
+            }, 
+            {
+                "words": "relative abundance",
+                "tokens": ["relative", "abundance"],
+                "NER_TAG": ["B-Y_AXIS_LABEL", "I-Y_AXIS_LABEL"],
+                "NER_ENCODING": [5, 6]
+            }, 
+            {
+                "words": "HSPs",
+                "tokens": ["HSPs"],
+                "NER_TAG": ["B-X_AXIS_LABEL"],
+                "NER_ENCODING": [3]
+            },
+            {
+                "words": "Kinases",
+                "tokens": ["Kinases"],
+                "NER_TAG": ["B-X_AXIS_LABEL"],
+                "NER_ENCODING": [3]
+            },
+            {
+                "words": "GPCRs",
+                "tokens": ["GPCRs"],
+                "NER_TAG": ["B-X_AXIS_LABEL"],
+                "NER_ENCODING": [3]
+            }
+        ]
+    },
+    {
+        "Line No.": 4,
+        "Tokens to tag": [
+            {
+                "words": "bar",
+                "tokens": ["bar"],
+                "NER_TAG": ["B-PLOT_TYPE"],
+                "NER_ENCODING": [1]
+            }, 
+            {
+                "words": "frequency",
+                "tokens": ["frequency"],
+                "NER_TAG": ["B-Y_AXIS_LABEL"],
+                "NER_ENCODING": [5]
+            }, 
+            {
+                "words": "point",
+                "tokens": ["point"],
+                "NER_TAG": ["B-X_AXIS_LABEL"],
+                "NER_ENCODING": [3]
+            },
+            {
+                "words": "insertion",
+                "tokens": ["insertion"],
+                "NER_TAG": ["B-X_AXIS_LABEL"],
+                "NER_ENCODING": [3]
+            },
+            {
+                "words": "missense",
+                "tokens": ["missense"],
                 "NER_TAG": ["B-X_AXIS_LABEL"],
                 "NER_ENCODING": [3]
             }
