@@ -1,0 +1,17 @@
+<div class="centre">
+    <p>Value: {{query.value}}</p>
+
+    <div class="query-Box">
+        <mat-form-field class="search" >
+            <mat-label>Enter a prompt here</mat-label>
+            <input matInput [formControl]="query" placeholder="Help Me">
+        </mat-form-field>
+
+        <button class="button" mat-raised-button (click)="print()">Press Me!</button>
+
+    </div>
+
+    <!-- <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="'bar'"> </canvas> -->
+
+</div>
+
