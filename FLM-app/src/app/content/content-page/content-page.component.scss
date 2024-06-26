@@ -1,24 +1,75 @@
+
+h1{
+    color: #f1f1f4;
+    font-family: 'Inter';font-size: 22px;
+}
+
+.topBar{
+    // border: 3px solid orange;
+    height:5%;
+    background-color: var(--mdc-protected-button-label-text-color);
+    padding-left: 20px;
+}
+
 .centre{
     margin: auto;
-    width: 50%;
-    border: 3px solid green;
-    padding: 10px;
+    width: 100%;
+    height:95%;
+    // border: 3px solid #050315;
+    display: flex;
+    flex-direction: row;
+}
+
+.leftCol{
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    width:50%;
+    
+}
+
+.rightCol{
+    flex-grow: 1;
+    width:50%;
+    background-color: #f1f1f4;
+    border: 1px solid #050315;
+    margin-top: 20px;
+    
+}
+
+.chat-Box{
+    padding: 20px;
 }
 
 .query-Box{
     display: flex;
     align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    background-color: var(--mdc-protected-button-label-text-color);
+
 }
 
 .search{
-    flex-grow: 3;
-    padding: 20px;
+    flex-grow: 1;
+    width:80%;
 }
 
 .button{
     flex-grow: 1;
     padding: 20px;
-    margin-bottom: 20px;
-
+    width:200px;
+    
 }
 
+.graph-Box{
+    padding: 30px;
+    background-color: #eeedf5;
+    border: 3px solid #050315;
+    margin: 20px;
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+    background-color: #f1f1f4;
+    }
