@@ -1,0 +1,24 @@
+.centre{
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+}
+
+.query-Box{
+    display: flex;
+    align-items: center;
+}
+
+.search{
+    flex-grow: 3;
+    padding: 20px;
+}
+
+.button{
+    flex-grow: 1;
+    padding: 20px;
+    margin-bottom: 20px;
+
+}
+
