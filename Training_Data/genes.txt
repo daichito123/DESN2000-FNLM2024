@@ -1,4 +1,3 @@
-Approved symbol	Approved name	Accession numbers	RefSeq IDs
 A1BG	alpha-1-B glycoprotein		NM_130786
 A1CF	APOBEC1 complementation factor	AF271790	NM_014576
 A2M	alpha-2-macroglobulin	BX647329, X68728, M11313	NM_000014
