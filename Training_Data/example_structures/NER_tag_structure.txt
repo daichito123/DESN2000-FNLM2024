@@ -10,7 +10,7 @@ NER_tags = [
 ]
 
 Numerical representation of tags (Numerically encoded tags)
-num_NER_tags = {
+NER_ENCODING = {
   'O': 0,
   'B-PLOT_TYPE': 1,
   'I-PLOT_TYPE': 2,

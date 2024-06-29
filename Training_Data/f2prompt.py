@@ -8,7 +8,9 @@ from f_vars import exp_lvl_plural, exp_lvl_singular
 from f_vars import gene_x_axis, gene_y_axis
 from f_vars import protein_x_axis, protein_y_axis
 
-def generate_combinations(w2d, template, vars):
+from create_token_object import create_token_object
+
+def generate_combinations(w2d, str_in, vars):
     # Generate all combinations from the mega list using itertools.product
     combinations = itertools.product(*w2d)
     
@@ -17,29 +19,55 @@ def generate_combinations(w2d, template, vars):
     for combo in combinations:
         # combo = [x, y, z]
         # vars = [vc, snv, vs]
-        formatted_string = template
-        for i, word in enumerate(combo):
+        formatted_string = str_in
+        tokens = []
+        for i, input in enumerate(combo):
+            # 'O' tag
             if vars[i] == 'vc':
-                formatted_string = formatted_string.replace("{vc}", word)
+                formatted_string = formatted_string.replace("{vc}", input)
+                token_object = create_token_object(input, 'O')
+                tokens.append(token_object)
             elif vars[i] == 'vs':
-                formatted_string = formatted_string.replace("{vs}", word)
+                formatted_string = formatted_string.replace("{vs}", input)
+                token_object = create_token_object(input, 'O')
+                tokens.append(token_object)
             elif vars[i] == 'nr':
-                formatted_string = formatted_string.replace("{nr}", word)
-            elif vars[i] == 'snv':
-                formatted_string = formatted_string.replace("{snv}", word)
+                formatted_string = formatted_string.replace("{nr}", input)
+                token_object = create_token_object(input, 'O')
+                tokens.append(token_object)
             elif vars[i] == 'els':
-                formatted_string = formatted_string.replace("{els}", word)
+                formatted_string = formatted_string.replace("{els}", input)
+                token_object = create_token_object(input, 'O')
+                tokens.append(token_object)
             elif vars[i] == 'elp':
-                formatted_string = formatted_string.replace("{elp}", word)
+                formatted_string = formatted_string.replace("{elp}", input)
+                token_object = create_token_object(input, 'O')
+                tokens.append(token_object)
+            # Plot type tag
+            elif vars[i] == 'snv':
+                formatted_string = formatted_string.replace("{snv}", input)
+                token_object = create_token_object(input, 'P')
+                tokens.append(token_object)
+            # X or Y axis tag
             elif vars[i] == 'g_x':
-                formatted_string = formatted_string.replace("{g_x}", word)
+                formatted_string = formatted_string.replace("{g_x}", input)
+                token_object = create_token_object(input, 'X')
+                tokens.append(token_object)
             elif vars[i] == 'g_y':
-                formatted_string = formatted_string.replace("{g_y}", word)
+                formatted_string = formatted_string.replace("{g_y}", input)
+                token_object = create_token_object(input, 'Y')
+                tokens.append(token_object)
             elif vars[i] == 'pr_x':
-                formatted_string = formatted_string.replace("{pr_x}", word)
+                formatted_string = formatted_string.replace("{pr_x}", input)
+                token_object = create_token_object(input, 'X')
+                tokens.append(token_object)
             elif vars[i] == 'pr_y':
-                formatted_string = formatted_string.replace("{pr_y}", word)
+                formatted_string = formatted_string.replace("{pr_y}", input)
+                token_object = create_token_object(input, 'Y')
+                tokens.append(token_object)
+        # Final formatted string
         formatted_string = re.sub(r'"', '', formatted_string)
+        # To do - create NER_Tagged object (See code from NER_tagging.py for help)
         formatted_strings.append(formatted_string)
     
     return formatted_strings
@@ -92,7 +120,7 @@ def f2prompts(str_in):
     # Order data
     data = order_data(str_in, filtered)
 
-    # Define mega list
+    # Define list
     w2d = [w['data'] for w in data]
 
     # Generate the formatted strings

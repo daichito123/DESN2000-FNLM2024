@@ -1,19 +1,16 @@
-
+# 'O' Tag
 verb_create = ["Generate", "Manufacture", "Create", "Make", "Plot"] 
-
 verb_show = ["display", "visualize", "highlight", "show", "exhibit"]
-
 noun_relationship = ["relationship", "correlation", "link"]
+
+exp_lvl_singular = ["expression level", "expression", "level of expression"]
+exp_lvl_plural = ["expression levels", "expressions", "levels of expression"]
 
 # Plot type
 
 scatterplot_name_var = ["scatterplot", "scatter plot", "scatter", "scatterchart", "scatter chart", "scattergraph", "scatter graph"]
 
-# Variables
-
-exp_lvl_singular = ["expression level", "expression", "level of expression"]
-
-exp_lvl_plural = ["expression levels", "expressions", "levels of expression"]
+# X or Y axis labels
 
 protein_x_axis = ["a", "b"]
 protein_y_axis = ["c", "d"]
