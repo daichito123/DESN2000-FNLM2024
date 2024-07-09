@@ -1,42 +1,66 @@
-# 'O' Tag
-verb_create = ["Generate", "Manufacture", "Create", "Make", "Plot"] 
-verb_show = ["display", "visualize", "highlight", "show", "exhibit"]
-noun_relationship = ["relationship", "correlation", "link"]
+import pandas as pd
 
-exp_lvl_singular = ["expression level", "expression", "level of expression"]
-exp_lvl_plural = ["expression levels", "expressions", "levels of expression"]
+def select_genes(file_path, n_genes, state, col_name):
+    df = pd.read_csv(file_path)
+    genes = df[col_name].dropna().sample(n=n_genes, random_state=state)
+    genes = genes.tolist()
+    return genes
+
+# 'O' Tag
+# vc
+verb_create = [
+    "Chart", "Graph", "Diagram", 
+    "Outline", "Sketch", "Design",
+    "Depict", "Create", "Make", "Generate", "Plot",  
+]
+
+# vs
+verb_show = [
+    "Picture", "See", "Perceive", 
+    "View", "Conceive", "Visualize",  
+    "Render", "Illustrate", 
+    "Image", 
+    "Display", "Show", "Present", 
+    "visualize", "show", "exhibit"
+]
+
+# nr
+noun_relationship = ["relationship", "correlation", "link", 'connection']
+
+# els
+exp_lvl_singular = ["expression level", "expression"]
+# elp
+exp_lvl_plural = ["expression levels", "levels of expression"]
 
 # Plot type
-
-scatterplot_name_var = ["scatterplot", "scatter plot", "scatter", "scatterchart", "scatter chart", "scattergraph", "scatter graph"]
+# snv
+scatterplot_name_var = ["scatterplot", "scatter", "scatter chart", "scattergraph"]
 
 # X or Y axis labels
+# com_x
+common_x_axis = []
+# com_y
+common_y_axis = ["patient age", "DNA methylation levels"]
 
-protein_x_axis = ["a", "b"]
-protein_y_axis = ["c", "d"]
+file_path = 'csv/human_organs.csv'
+# org_x
+organ_x_axis = [f"({element})" for element in select_genes(file_path, 25, 1, 'Organ')]
+# org_y
+organ_y_axis = [f"({element})" for element in select_genes(file_path, 25, 2, 'Organ')]
 
-gene_x_axis = ["e", "f"]
-gene_y_axis = ["g", "h"]
+# oth_x
+other_x_axis = ["(Treated)", "(Untreated)", "(Control)"]
+# oth_y
+other_y_axis = ["(Treated)", "(Untreated)", "(Control)"]
 
+file_path = 'csv/proteins.csv'
+# pr_x
+protein_x_axis = select_genes(file_path, 250, 1, 'HGNC Symbol')
+# pr_y
+protein_y_axis = select_genes(file_path, 250, 2, 'HGNC Symbol')
 
-data = [
-    [5, 7, 5], 
-    [3, 1000, 1000],
-    [3, 3, 1000, 7],
-    [3, 3, 1000, 1000], 
-    [5, 7, 5, 3, 3, 1000, 1000],
-    [3, 1000, 1000, 7],
-    [7, 1000, 1000],
-    [3, 7, 3, 1000],
-    [5, 7, 5, 3, 3, 1000],
-    [5, 7, 3, 1000],
-    [3, 1000, 1000, 5, 7]
-]
-product = 1
-for row in data:
-    row_product = 1
-    for num in row:
-        row_product *= num
-    product += row_product
-
-print("Product:", product)
+file_path = 'csv/genes.csv'
+# g_x
+gene_x_axis = select_genes(file_path, 15000, 1, 'Approved symbol')
+# g_y
+gene_y_axis = select_genes(file_path, 15000, 2, 'Approved symbol')

@@ -11,12 +11,12 @@ NER_ENCODING = {
   'I-Y_AXIS_LABEL': 6
 }
 
-def modify_NER_content(object, tag_type, index):
+def modify_NER_content(object, tag_type, index, IOB):
 
     if tag_type == 'O':
         tag = 'O'
     
-    if index == 0:
+    if index == 0 and IOB == 'B':
         if tag_type == 'P':
             tag = 'B-PLOT_TYPE'
         elif tag_type == 'X':
@@ -36,7 +36,7 @@ def modify_NER_content(object, tag_type, index):
 
     return object
 
-def create_token_object(input, tag_type):
+def create_token_object(input, tag_type, IOB):
     # tag_type must be either: O, P, X or Y
     tokens = word_tokenize(input)
     token_object = {
@@ -46,9 +46,9 @@ def create_token_object(input, tag_type):
         "NER_ENCODING": []
     }
     if len(tokens) == 1:
-        token_object = modify_NER_content(token_object, tag_type, 0)
+        token_object = modify_NER_content(token_object, tag_type, 0, IOB)
     else:
         for i in range(len(tokens)):
-            token_object = modify_NER_content(token_object, tag_type, i)
+            token_object = modify_NER_content(token_object, tag_type, i, IOB)
 
     return token_object
