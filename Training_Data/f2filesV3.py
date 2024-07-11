@@ -11,7 +11,7 @@ from f_vars import (verb_create, verb_show, noun_relationship, scatterplot_name_
                     organ_x_axis, organ_y_axis, other_x_axis, other_y_axis)
 from create_token_object import create_token_object
 
-def generate_files(w2d, str_in, vars, txt_path, json_path, batch_size=400):
+def generate_files(w2d, str_in, vars, txt_path, json_path, batch_size=1000):
     combinations = itertools.product(*w2d)
     txt_batch = []
     json_batch = []

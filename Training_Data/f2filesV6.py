@@ -133,7 +133,6 @@ def prompt2json(str_in, tokens2tag):
         "NER_TAG": ["O"] * size,
         "NER_ENCODING": [0] * size
     }
-
     for t in tokens2tag:
         try:
             index = tokens.index(t["tokens"][0])
@@ -167,6 +166,7 @@ def write2files():
 
     queue.put((['DONE'], []))
     writer_process.join()
+    return
 
 def main():
     write2files()
