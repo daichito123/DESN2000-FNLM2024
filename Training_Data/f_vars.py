@@ -55,7 +55,7 @@ exp_lvl_plural = ["expression levels", "levels of expression"]
 
 # Plot type
 # snv
-scatterplot_name_var = ["scatterplot", "scatter", "scatter chart", "scattergraph"]
+scatterplot_name_var = ["scatterplot", "scatter", "scatter chart", "scattergraph", "scatter plot", "scatterchart", "scatter graph"]
 
 # X or Y axis labels
 # com_x

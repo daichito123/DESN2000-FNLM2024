@@ -18,3 +18,16 @@ for row in data:
         row_product *= num
     product += row_product
 
+
+{
+    "words": "Plot scattergraph KRTAP29-1 (Nerves) and LEPR", 
+    "tokens": [
+               "Plot", "scattergraph", "KRTAP29-1", 
+               "(", "Nerves", ")", "and", "LEPR"
+              ], 
+    "NER_TAG": [
+                "O", "B-PLOT_TYPE", "B-X_AXIS_LABEL", "I-X_AXIS_LABEL", 
+                "I-X_AXIS_LABEL", "I-X_AXIS_LABEL", "O", "B-Y_AXIS_LABEL"
+               ], 
+    "NER_ENCODING": [0, 1, 3, 4, 4, 4, 0, 5]
+}

@@ -1,6 +1,16 @@
 import nltk
 from nltk.tokenize import word_tokenize
 
+NER_TAGS = [
+    'O',
+    'B-PLOT_TYPE',
+    'I-PLOT_TYPE',
+    'B-X_AXIS_LABEL',
+    'I-X_AXIS_LABEL',
+    'B-Y_AXIS_LABEL',
+    'I-Y_AXIS_LABEL'
+]
+
 NER_ENCODING = {
   'O': 0,
   'B-PLOT_TYPE': 1,
