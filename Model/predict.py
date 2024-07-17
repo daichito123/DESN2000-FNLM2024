@@ -8,9 +8,9 @@ model_name = 'ditto123/FNLM-DESN200'
 model = BertForTokenClassification.from_pretrained(model_name)
 tokenizer = BertTokenizerFast.from_pretrained(model_name)
 
-text = "Compare gene expression levels of KRTAP12 (Heart) and LCE3D-1 in the liver using a scatterplot"
+text = "Make scatterplot and graph expression levels of AKR1E in the brain and MAT1A in the pancreas"
 
-# Tokenize the input text
+# Tokenize the input tex
 inputs = tokenizer(text, return_tensors="pt")
 tokens = tokenizer.convert_ids_to_tokens(inputs['input_ids'][0])
 
