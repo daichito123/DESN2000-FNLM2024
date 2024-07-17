@@ -1,6 +1,7 @@
 import torch
 from transformers import BertTokenizerFast, BertForTokenClassification
 import re
+import json
 
 model_name = 'ditto123/FNLM-DESN200'
 
@@ -57,4 +58,10 @@ if re.search(r'scatter', data['PLOT_TYPE'].lower()):
 for key, value in data.items():
     data[key] = value.upper()
 
-print(f"JSON output: {data}\n")
+print("Postprocessing complete\n")
+
+
+print(f"JSON output: {data}")
+with open("output.json", 'w') as json_file:
+    json.dump(data, json_file, indent=4)
+print("Output written to JSON")

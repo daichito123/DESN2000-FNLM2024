@@ -4,7 +4,7 @@
 import json
 import torch
 from transformers import BertTokenizerFast, BertForTokenClassification, Trainer, TrainingArguments
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split 
 
 snv = ["scatterplot", "scatter", "scatter chart", "scattergraph", "scatter plot", "scatterchart", "scatter graph"]
 

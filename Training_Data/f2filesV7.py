@@ -1,4 +1,5 @@
 # Fixed bug with tagging brackets and added extra variables
+# Run time - 1 million (Approx. 2 mins)
 import os
 import re
 import json
