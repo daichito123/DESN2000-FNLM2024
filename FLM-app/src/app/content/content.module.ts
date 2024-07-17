@@ -1,26 +1,36 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import {Component} from '@angular/core';
 import { ContentPageComponent } from './content-page/content-page.component';
+import { IntroStateComponent } from './intro-state/intro-state.component';
+import { QueryStateComponent } from './query-state/query-state.component';
+
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
-import { BaseChartDirective } from 'ng2-charts';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+
+
+
 
 @NgModule({
-  declarations: [ContentPageComponent],
+  declarations: [ContentPageComponent, IntroStateComponent, QueryStateComponent],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    FormsModule, 
-    MatFormFieldModule, 
-    MatInputModule,
+    MatSidenavModule,
     MatButtonModule,
-    BaseChartDirective
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
   exports: [
-    ContentPageComponent
+    ContentPageComponent,
+    IntroStateComponent,
+    QueryStateComponent
   ]
 })
 export class ContentModule { }
