@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
 
+
+type GraphObject = {
+  X_AXIS_LABEL: string;
+  Y_AXIS_LABEL: string;
+  PLOT_TYPE: string;
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -79,5 +86,17 @@ export class QueryServiceService {
 
   getFileName(): string {
     return this.currentFileName;
+  }
+
+  mlPredict(query:string):GraphObject{
+    console.log(query)
+
+    // run the model
+
+    return {
+      X_AXIS_LABEL: 'ACOX2 (Liver)',
+      Y_AXIS_LABEL: 'KCNE4 (Heart)',
+      PLOT_TYPE: 'scatter',
+    };
   }
 }

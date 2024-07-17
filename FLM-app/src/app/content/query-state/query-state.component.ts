@@ -105,11 +105,8 @@ export class QueryStateComponent {
   }
 
   private initializeChart() {
-    const graphQueryOptions: GraphObject = {
-      X_AXIS_LABEL: 'ACOX2 (Liver)',
-      Y_AXIS_LABEL: 'KCNE4 (Heart)',
-      PLOT_TYPE: 'scatter',
-    };
+    const graphQueryOptions = this.queryService.mlPredict(this.currentQuery)
+
     // const graphQueryOptions: GraphObject = {
     //   X_AXIS_LABEL: 'Sample A',
     //   Y_AXIS_LABEL: 'Sample B',
