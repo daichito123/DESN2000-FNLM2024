@@ -5,11 +5,17 @@ import re
 model_name = 'ditto123/FNLM-DESN200'
 
 # Load the trained model and tokenizer
+print("Loading model...")
 model = BertForTokenClassification.from_pretrained(model_name)
+print("Model loaded\n")
+
+print("Loading tokenizer...")
 tokenizer = BertTokenizerFast.from_pretrained(model_name)
+print("Tokenizer loaded\n")
 
-text = "Compare gene expression levels of KRTAP12 (Heart) and LCE3D-1 in the liver using a scatterplot"
+text = "Make a scatterplot. Compare expression levels of OR6K6 in the Pancreas to SLC36A4 (Heart)"
 
+print("Model processing...")
 # Tokenize the input text
 inputs = tokenizer(text, return_tensors="pt")
 tokens = tokenizer.convert_ids_to_tokens(inputs['input_ids'][0])
@@ -24,7 +30,9 @@ predictions = torch.argmax(logits, dim=-1)
 # Map the predicted labels to entity names
 label_map = {0: "O", 1: "B-PLOT_TYPE", 2: "I-PLOT_TYPE", 3: "B-X_AXIS_LABEL", 4: "I-X_AXIS_LABEL", 5: "B-Y_AXIS_LABEL", 6: "I-Y_AXIS_LABEL"}
 predicted_labels = [label_map[label.item()] for label in predictions[0]]
+print("Process complete\n")
 
+print("Postprocessing...")
 # Remove items with 'O' Tag
 filtered_results = [(token, label) for token, label in zip(tokens, predicted_labels) if label != 'O']
 
@@ -41,7 +49,7 @@ for token, label in filtered_results:
     else:
         data[label] = data[label] + token
 
-# Standardize plot type
+# Standardize plot label
 if re.search(r'scatter', data['PLOT_TYPE'].lower()):
     data['PLOT_TYPE'] = 'SCATTER'
 
@@ -49,5 +57,4 @@ if re.search(r'scatter', data['PLOT_TYPE'].lower()):
 for key, value in data.items():
     data[key] = value.upper()
 
-# In JS, just need to make column names into a single word and then compare against these values (in data)
-print(data)
+print(f"JSON output: {data}\n")
