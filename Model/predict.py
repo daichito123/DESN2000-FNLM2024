@@ -15,10 +15,16 @@ tokenizer = BertTokenizerFast.from_pretrained(model_name)
 print("Tokenizer loaded\n")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 text = "Make a scatterplot. Compare expression levels of OR6K6 in the Pancreas to SLC36A4 (Heart)"
 
 print("Model processing...")
 # Tokenize the input text
+=======
+text = "Make scatterplot and graph expression levels of AKR1E in the brain and MAT1A in the pancreas"
+
+# Tokenize the input tex
+>>>>>>> f5f54dd9e8203ae65aebdcdf88b32f989537b56c
 =======
 text = "Make scatterplot and graph expression levels of AKR1E in the brain and MAT1A in the pancreas"
 
