@@ -14,10 +14,16 @@ print("Loading tokenizer...")
 tokenizer = BertTokenizerFast.from_pretrained(model_name)
 print("Tokenizer loaded\n")
 
+<<<<<<< HEAD
 text = "Make a scatterplot. Compare expression levels of OR6K6 in the Pancreas to SLC36A4 (Heart)"
 
 print("Model processing...")
 # Tokenize the input text
+=======
+text = "Make scatterplot and graph expression levels of AKR1E in the brain and MAT1A in the pancreas"
+
+# Tokenize the input tex
+>>>>>>> f5f54dd9e8203ae65aebdcdf88b32f989537b56c
 inputs = tokenizer(text, return_tensors="pt")
 tokens = tokenizer.convert_ids_to_tokens(inputs['input_ids'][0])
 
