@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import { QueryServiceService } from '../../query-service.service';
+
 
 
 @Component({
@@ -7,13 +8,18 @@ import {FormControl, FormGroup} from '@angular/forms';
   templateUrl: './content-page.component.html',
   styleUrl: './content-page.component.scss'
 })
+
 export class ContentPageComponent {
-  // userForm = new FormGroup();
-  query = new FormControl('');
-
-
-  print() {
-    console.log(this.query.value)
+  isExpanded = false;
+  public queryService: QueryServiceService;
+  constructor(queryService:QueryServiceService){
+    this.queryService = queryService;
   }
+  
+  toggleWidth() {
+    this.isExpanded = !this.isExpanded;
+  }
+
+
 }
 
