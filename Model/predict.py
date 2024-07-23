@@ -1,13 +1,13 @@
-import torch
-from transformers import BertTokenizerFast, BertForTokenClassification
+import tensorflow as tf
+from transformers import BertTokenizerFast, TFBertForTokenClassification
 import re
 import json
 
-model_name = 'ditto123/FNLM-DESN200'
+model_name = 'ditto123/FNLM-DESN200-tf'
 
 # Load the trained model and tokenizer
 print("Loading model...")
-model = BertForTokenClassification.from_pretrained(model_name)
+model = TFBertForTokenClassification.from_pretrained(model_name)
 print("Model loaded\n")
 
 print("Loading tokenizer...")
@@ -17,19 +17,21 @@ print("Tokenizer loaded\n")
 text = "Compare gene expression levels of KRTAP12 (Heart) and LCE3D-1 in the liver using a scatterplot"
 
 # Tokenize the input text
-inputs = tokenizer(text, return_tensors="pt")
-tokens = tokenizer.convert_ids_to_tokens(inputs['input_ids'][0])
+inputs = tokenizer(text, return_tensors="tf")
+tokens = tokenizer.convert_ids_to_tokens(inputs['input_ids'][0].numpy())
 
 # Get model predictions
-outputs = model(**inputs)
-logits = outputs.logits
+outputs = model(inputs)
+logits = outputs.logits                                                                                                                                            
 
 # Convert logits to predicted labels
-predictions = torch.argmax(logits, dim=-1)
+predictions = tf.argmax(logits, axis=-1)
+
+print(predictions)
 
 # Map the predicted labels to entity names
 label_map = {0: "O", 1: "B-PLOT_TYPE", 2: "I-PLOT_TYPE", 3: "B-X_AXIS_LABEL", 4: "I-X_AXIS_LABEL", 5: "B-Y_AXIS_LABEL", 6: "I-Y_AXIS_LABEL"}
-predicted_labels = [label_map[label.item()] for label in predictions[0]]
+predicted_labels = [label_map[label.numpy()] for label in predictions[0]]
 print("Process complete\n")
 
 print("Postprocessing...")

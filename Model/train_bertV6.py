@@ -3,7 +3,7 @@
 # Run cmd: huggingface-cli login
 import json
 import torch
-from transformers import BertTokenizerFast, BertForTokenClassification, Trainer, TrainingArguments
+from transformers import BertTokenizerFast, BertForTokenClassification, Trainer, TrainingArguments, TFBertForTokenClassification
 from sklearn.model_selection import train_test_split 
 
 snv = ["scatterplot", "scatter", "scatter chart", "scattergraph", "scatter plot", "scatterchart", "scatter graph"]
@@ -82,15 +82,15 @@ def main():
 
     # Create training and eval sets from main training set
     training_set, eval_set, training_labels, eval_labels = train_test_split(tokens, encodings, test_size=0.2)
-
+    
     # Create encodings and labels
     training_encodings, training_aligned_labels = tokenize_and_align_labels(training_set, training_labels, tokenizer)
     eval_encodings, eval_aligned_labels = tokenize_and_align_labels(eval_set, eval_labels, tokenizer)
 
     # Create Classes compatible with PyTorch datasets
     train_dataset = Dataset(training_encodings, training_aligned_labels)
-    eval_dataset = Dataset(eval_encodings, eval_aligned_labels) 
-
+    eval_dataset = Dataset(eval_encodings, eval_aligned_labels)  
+    
     # Load the model
     model = BertForTokenClassification.from_pretrained('bert-base-uncased', num_labels=7)
 
@@ -117,16 +117,18 @@ def main():
         train_dataset=train_dataset,       
         eval_dataset=eval_dataset           
     )
-
-    model_name = 'FNLM-DESN200'
     # Train the model
     trainer.train()
 
+    model_name = 'FNLM-DESN200'
     model.save_pretrained(model_name)
-    tokenizer.save_pretrained(model_name)
 
-    model.push_to_hub(model_name)
-    tokenizer.push_to_hub(model_name)
+    # Save model in TF format
+    tf_model = TFBertForTokenClassification.from_pretrained(model_name, from_pt=True)
+    # tf_model.save_pretrained(f"{model_name}-tf")
+
+    tf_model.push_to_hub(f"{model_name}-tf")
+    tokenizer.push_to_hub(f"{model_name}-tf")
 
 if __name__ == '__main__':
     main()

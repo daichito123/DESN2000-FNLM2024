@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+// To run model
+import { BertTokenizer, BertForTokenClassification } from '@xenova/transformers';
 
 type GraphObject = {
   X_AXIS_LABEL: string;
@@ -88,10 +90,13 @@ export class QueryServiceService {
     return this.currentFileName;
   }
 
+  // ML functions
+  
   mlPredict(query:string):GraphObject{
-    console.log(query)
+    const model_name = 'ditto123/FNLM-DESN200'
+    const model = BertForTokenClassification.from_pretrained(model_name)
+    const tokenizer = BertTokenizer.from_pretrained(model_name)
 
-    // run the model
 
     return {
       X_AXIS_LABEL: 'ACOX2 (Liver)',
