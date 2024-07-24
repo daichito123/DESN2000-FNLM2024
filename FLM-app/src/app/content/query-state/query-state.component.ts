@@ -26,6 +26,8 @@ export class QueryStateComponent {
   chartId: string = `chart-${Math.random().toString(36).substr(2, 9)}`;
   loading: boolean = false;
   chart: Chart | null = null;
+  isSpinning = false;
+
 
   constructor(private queryService: QueryServiceService) {}
 
@@ -45,6 +47,10 @@ export class QueryStateComponent {
     if (file) {
       this.loading = true;
       await this.importFile(file);
+      if (this.chart) {
+        this.chart.destroy();
+      }
+      this.currentQuery = "Please provide a graphing query"
       this.loading = false;
     } else {
       console.error('No file selected');
@@ -92,31 +98,25 @@ export class QueryStateComponent {
     if (query) {
       this.queryService.addQuery(query);
       this.currentQuery = query;
-      this.initializeChart();
+      this.inputQuery.reset()
+      this.initializeChart()
     } else {
       console.error('Please enter a query');
     }
   }
 
   regenerateResponse() {
+    this.isSpinning = true;
     if (this.currentQuery) {
-      this.queryService.addQuery(this.currentQuery);
+      setTimeout(() => {
+        this.isSpinning = false;
+      }, 1000); 
+      this.initializeChart();
     }
   }
 
   private initializeChart() {
     const graphQueryOptions = this.queryService.mlPredict(this.currentQuery)
-
-    // const graphQueryOptions: GraphObject = {
-    //   X_AXIS_LABEL: 'Sample A',
-    //   Y_AXIS_LABEL: 'Sample B',
-    //   PLOT_TYPE: 'scatter',
-    // };
-    // const graphQueryOptions: GraphObject = {
-    //   X_AXIS_LABEL: 'KCNE4 (Brain)',
-    //   Y_AXIS_LABEL: 'KCNE4 (Liver)',
-    //   PLOT_TYPE: 'scatter',
-    // };
     this.parseChartData(graphQueryOptions);
   }
 
@@ -125,7 +125,6 @@ export class QueryStateComponent {
       console.error('No data available');
       return;
     }
-
     const { X_AXIS_LABEL, Y_AXIS_LABEL, PLOT_TYPE } = graphQueryOptions;
     const xIndex = this.columnNames.indexOf(X_AXIS_LABEL);
     const yIndex = this.columnNames.indexOf(Y_AXIS_LABEL);
@@ -216,4 +215,14 @@ export class QueryStateComponent {
       }
     }, 0);
   }
+
+  downloadImage() {
+      if (this.chart) {
+        var a = document.createElement('a');
+        a.href = this.chart.toBase64Image()
+        a.download = 'my_file_name.png';
+        a.click()
+      }
+  }
+
 }
