@@ -2,16 +2,27 @@
   <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
 
   <div class="title">
-    <img src="assets/logo.png" alt="Logo" width="268px">
+    <img src="assets/logo.png" alt="Logo" width="268px" />
     <hr />
   </div>
 
   <div class="contentColumn">
     <div class="displayedQuery">
-      <p>{{ this.currentQuery }}</p>
+      <h3>{{ this.currentQuery }}</h3>
     </div>
     <div class="chart-container">
       <canvas [id]="chartId"></canvas>
+      <div class="download-container">
+        <button
+        mat-fab
+        class="downloadButton"
+        (click)="downloadImage()"
+        style="background-color: #01359a"
+      >
+        <mat-icon>download</mat-icon>
+      </button>
+      </div>
+
     </div>
 
     <div class="querySection">
@@ -35,6 +46,7 @@
             matInput
             [formControl]="inputQuery"
             placeholder="Example : Plot gene expression of ..."
+            (keyup.enter)="sendQuery()"
           />
         </mat-form-field>
 
@@ -51,7 +63,7 @@
 
       <button class="attachButton" (click)="regenerateResponse()">
         Regenerate response
-        <mat-icon>autorenew</mat-icon>
+        <mat-icon [class.spin]="isSpinning">autorenew</mat-icon>
       </button>
     </div>
   </div>

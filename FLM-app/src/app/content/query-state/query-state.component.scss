@@ -64,6 +64,30 @@ canvas {
   cursor:pointer;
 }
 
+.download-container{
+  display: flex;
+  justify-content: end;
+}
+
+.downloadButton{
+  width:40px;
+  height: 40px;
+  border-radius: 11px !important;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
 
 .mat-mdc-raised-button:not(:disabled) {
     background-color: #01359a;
