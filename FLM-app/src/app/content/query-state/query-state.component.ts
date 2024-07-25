@@ -104,8 +104,8 @@ export class QueryStateComponent {
     }
   }
 
-  private initializeChart() {
-    const graphQueryOptions = this.queryService.mlPredict(this.currentQuery)
+  private async initializeChart() {
+    const graphQueryOptions = await this.queryService.mlPredict(this.currentQuery)
 
     // const graphQueryOptions: GraphObject = {
     //   X_AXIS_LABEL: 'Sample A',
