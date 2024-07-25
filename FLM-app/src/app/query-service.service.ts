@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 // To run model
 import { AutoTokenizer } from '@xenova/transformers';
 import * as tf from '@tensorflow/tfjs';
+import { HttpClient } from '@angular/common/http';
 
 type GraphObject = {
   X_AXIS_LABEL: string;
@@ -21,6 +22,11 @@ export class QueryServiceService {
   private currentFileName: string = 'No File Uploaded';
   public parsedData: any;
   public loading: boolean = false;
+  private httpClient: HttpClient;
+
+  constructor(http: HttpClient) {
+    this.httpClient = http;
+  }
 
   getQueries(): string[] {
     return [...this.queries]; // Return a copy of the array for immutability
@@ -102,6 +108,7 @@ export class QueryServiceService {
     const model = await tf.loadLayersModel(model_path);
 
     console.log("Checkpoint2")
+    console.log(model)
 
     // Tokenize input text
     const inputs = tokenizer.encode(query);
@@ -128,43 +135,43 @@ export class QueryServiceService {
       6: "I-Y_AXIS_LABEL"
     };
     
-    const predictedLabels = predictions[].map((label: any) => labelMap[label.item()]);
+    // const predictedLabels = predictions.map((label: any) => labelMap[label.item()]);
     
-    // Remove items with 'O' Tag
-    const filteredResults = tokens.map((token: string, idx: number) => ({
-      token,
-      label: predictedLabels[idx]
-    })).filter(item => item.label !== 'O');
+    // // Remove items with 'O' Tag
+    // const filteredResults = tokens.map((token: string, idx: number) => ({
+    //   token,
+    //   label: predictedLabels[idx]
+    // })).filter(item => item.label !== 'O');
     
-    // Remove B and O tags
-    const cleanedResults = filteredResults.map(({ token, label }) => ({
-      token,
-      label: label.replace('B-', '').replace('I-', '')
-    }));
+    // // Remove B and O tags
+    // const cleanedResults = filteredResults.map(({ token, label }) => ({
+    //   token,
+    //   label: label.replace('B-', '').replace('I-', '')
+    // }));
     
-    // Group by NER_TAG
-    const data: { [key: string]: string } = {};
-    cleanedResults.forEach(({ token, label }) => {
-    if (!(label in data)) {
-      data[label] = '';
-    }
-    if (token.includes('#')) {
-      data[label] = (data[label] + token).replace('#', '');
-    } else {
-      data[label] += token;
-    }
-    });
+    // // Group by NER_TAG
+    // const data: { [key: string]: string } = {};
+    // cleanedResults.forEach(({ token, label }) => {
+    // if (!(label in data)) {
+    //   data[label] = '';
+    // }
+    // if (token.includes('#')) {
+    //   data[label] = (data[label] + token).replace('#', '');
+    // } else {
+    //   data[label] += token;
+    // }
+    // });
     
-    // Standardize plot type
-    const plotTypeKey = 'PLOT_TYPE';
-    if (new RegExp('scatter', 'i').test(data[plotTypeKey])) {
-    data[plotTypeKey] = 'SCATTER';
-    }
+    // // Standardize plot type
+    // const plotTypeKey = 'PLOT_TYPE';
+    // if (new RegExp('scatter', 'i').test(data[plotTypeKey])) {
+    // data[plotTypeKey] = 'SCATTER';
+    // }
     
-    // Capitalize everything
-    for (const [key, value] of Object.entries(data)) {
-      data[key] = value.toUpperCase();
-    }
+    // // Capitalize everything
+    // for (const [key, value] of Object.entries(data)) {
+    //   data[key] = value.toUpperCase();
+    // }
       return {
       X_AXIS_LABEL: 'ACOX2 (Liver)',
       Y_AXIS_LABEL: 'KCNE4 (Heart)',
