@@ -94,81 +94,12 @@ export class QueryServiceService {
   // ML functions
   
   async mlPredict(query:string):Promise<GraphObject>{
-    // Load model and tokenizer
-    const model_name = 'ditto123/FNLM-DESN200';
-    const tokenizer = await AutoTokenizer.from_pretrained(model_name);
-    console.log("Checkpoint1")
-    const model_path = '/assets/tfjs_model/model.json';
-    const model = await tf.loadLayersModel(model_path);
-
-    console.log("Checkpoint2")
-
-    // Tokenize input text
-    const inputs = tokenizer.encode(query);
-    const tensors = tf.tensor(inputs);
-
-    // Get tokens from input IDs
-    const tokens = tokenizer.decode(inputs).split(' ');
-
-    // Run model
-    const outputs = model.predict(tensors) as tf.Tensor;
-    const logits = outputs.arraySync()
-
-    const predictions = tf.argMax(logits, -1).arraySync();
-
-    console.log(predictions)
-
-    const labelMap: { [key: number]: string } = {
-      0: "O",
-      1: "B-PLOT_TYPE",
-      2: "I-PLOT_TYPE",
-      3: "B-X_AXIS_LABEL",
-      4: "I-X_AXIS_LABEL",
-      5: "B-Y_AXIS_LABEL",
-      6: "I-Y_AXIS_LABEL"
-    };
     
-    const predictedLabels = predictions[].map((label: any) => labelMap[label.item()]);
-    
-    // Remove items with 'O' Tag
-    const filteredResults = tokens.map((token: string, idx: number) => ({
-      token,
-      label: predictedLabels[idx]
-    })).filter(item => item.label !== 'O');
-    
-    // Remove B and O tags
-    const cleanedResults = filteredResults.map(({ token, label }) => ({
-      token,
-      label: label.replace('B-', '').replace('I-', '')
-    }));
-    
-    // Group by NER_TAG
-    const data: { [key: string]: string } = {};
-    cleanedResults.forEach(({ token, label }) => {
-    if (!(label in data)) {
-      data[label] = '';
-    }
-    if (token.includes('#')) {
-      data[label] = (data[label] + token).replace('#', '');
-    } else {
-      data[label] += token;
-    }
-    });
-    
-    // Standardize plot type
-    const plotTypeKey = 'PLOT_TYPE';
-    if (new RegExp('scatter', 'i').test(data[plotTypeKey])) {
-    data[plotTypeKey] = 'SCATTER';
-    }
-    
-    // Capitalize everything
-    for (const [key, value] of Object.entries(data)) {
-      data[key] = value.toUpperCase();
-    }
-      return {
+    return {
       X_AXIS_LABEL: 'ACOX2 (Liver)',
       Y_AXIS_LABEL: 'KCNE4 (Heart)',
       PLOT_TYPE: 'scatter',
     };
+
   }
 }
