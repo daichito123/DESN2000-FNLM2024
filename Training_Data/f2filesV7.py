@@ -1,4 +1,5 @@
 # Fixed bug with tagging brackets and added extra variables
+# Run time - 1 million (Approx. 2 mins)
 import os
 import re
 import json
@@ -21,7 +22,7 @@ from create_token_object import create_token_object
 def generate_files(w2d, str_in, vars, queue, batch_size=1000):
     txt_batch = []
     json_batch = []
-    for i in range(1000):
+    for i in range(100):
         combination = []
         # w2d = words 2 data i.e. from tag to data
         # Create combination of words

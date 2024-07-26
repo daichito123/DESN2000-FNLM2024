@@ -3,12 +3,14 @@ import { QueryServiceService } from '../../query-service.service';
 import { FormControl } from '@angular/forms';
 import { ChartConfiguration } from 'chart.js';
 import Chart from 'chart.js/auto';
+import { firstValueFrom } from 'rxjs';
 
 type GraphObject = {
   X_AXIS_LABEL: string;
   Y_AXIS_LABEL: string;
   PLOT_TYPE: string;
 };
+
 
 @Component({
   selector: 'app-query-state',
@@ -26,6 +28,8 @@ export class QueryStateComponent {
   chartId: string = `chart-${Math.random().toString(36).substr(2, 9)}`;
   loading: boolean = false;
   chart: Chart | null = null;
+  plotTypes = ["scatter", "bar", "line", "doughnut"]
+
   isSpinning = false;
 
 
@@ -99,7 +103,8 @@ export class QueryStateComponent {
       this.queryService.addQuery(query);
       this.currentQuery = query;
       this.inputQuery.reset()
-      this.initializeChart()
+      this.initializeChart();
+
     } else {
       console.error('Please enter a query');
     }
@@ -112,12 +117,99 @@ export class QueryStateComponent {
         this.isSpinning = false;
       }, 1000); 
       this.initializeChart();
+
     }
   }
 
-  private initializeChart() {
-    const graphQueryOptions = this.queryService.mlPredict(this.currentQuery)
-    this.parseChartData(graphQueryOptions);
+  private async initializeChart() {
+
+    try {
+      const graphQueryOptions = await firstValueFrom(this.queryService.mlPredict(this.currentQuery));
+      console.log('Response from server:', graphQueryOptions);
+      const matchedOptions = this.matchOptions(graphQueryOptions)
+      this.parseChartData(matchedOptions);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  private levenshtein(a: string, b: string): number {
+    const matrix: number[][] = [];
+
+    // increment along the first column of each row
+    for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+    }
+
+    // increment each column in the first row
+    for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+    }
+
+    // fill in the rest of the matrix
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1, // substitution
+                    Math.min(
+                        matrix[i][j - 1] + 1, // insertion
+                        matrix[i - 1][j] + 1 // deletion
+                    )
+                );
+            }
+        }
+    }
+
+    return matrix[b.length][a.length];
+  }
+
+  downloadImage() {
+    if (this.chart) {
+      var a = document.createElement('a');
+      a.href = this.chart.toBase64Image()
+      a.download = 'my_file_name.png';
+      a.click()
+    }
+}
+
+  private findMostSimilar(target: string, candidates: string[]): string {
+    let minDistance = Infinity;
+    let mostSimilar = "";
+
+    for (const candidate of candidates) {
+        const distance = this.levenshtein(target, candidate);
+        if (distance < minDistance) {
+            minDistance = distance;
+            mostSimilar = candidate;
+        }
+    }
+
+    return mostSimilar;
+}
+
+  private matchOptions( graphQueryOptions: GraphObject) : GraphObject {
+    var adjustedColNames = []
+    for (var col of this.columnNames){
+      var cleanedCol = col.replace(/[()\[\]{}<> ]/g, "");
+      adjustedColNames.push(cleanedCol.toLowerCase());
+    }
+
+    const similarX = this.findMostSimilar(graphQueryOptions.X_AXIS_LABEL, adjustedColNames);
+    const similarY = this.findMostSimilar(graphQueryOptions.Y_AXIS_LABEL, adjustedColNames);
+    const similarPlot = this.findMostSimilar(graphQueryOptions.PLOT_TYPE, this.plotTypes);
+    const xPos = adjustedColNames.indexOf(similarX)
+    const YPos = adjustedColNames.indexOf(similarY)
+    const plotPos = this.plotTypes.indexOf(similarPlot)
+
+    return {
+      X_AXIS_LABEL: this.columnNames[xPos],
+      Y_AXIS_LABEL: this.columnNames[YPos],
+      PLOT_TYPE: this.plotTypes[plotPos],
+    };
+
   }
 
   private parseChartData(graphQueryOptions: GraphObject) {
@@ -143,7 +235,7 @@ export class QueryStateComponent {
       type: PLOT_TYPE,
       data: {
         datasets: [{
-          label: `${X_AXIS_LABEL} vs ${Y_AXIS_LABEL}`,
+          label: `${this.columnNames[xIndex]} vs ${this.columnNames[yIndex]}`,
           data,
           backgroundColor: 'rgba(75, 192, 192, 0.2)', // Modern teal color with transparency
           borderColor: 'rgba(75, 192, 192, 1)', // Solid teal border
@@ -158,7 +250,7 @@ export class QueryStateComponent {
           x: {
             title: {
               display: true,
-              text: X_AXIS_LABEL,
+              text: this.columnNames[xIndex],
               color: "#e5e5e5"
             },
             grid: {
@@ -168,7 +260,7 @@ export class QueryStateComponent {
           y: {
             title: {
               display: true,
-              text: Y_AXIS_LABEL,
+              text: this.columnNames[yIndex],
               color: "#e5e5e5"
             },
             grid: {
