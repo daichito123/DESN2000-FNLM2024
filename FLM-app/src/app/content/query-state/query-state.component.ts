@@ -29,6 +29,7 @@ export class QueryStateComponent {
   loading: boolean = false;
   chart: Chart | null = null;
   plotTypes = ["scatter", "bar", "line", "doughnut"]
+
   isSpinning = false;
 
 
@@ -103,6 +104,7 @@ export class QueryStateComponent {
       this.currentQuery = query;
       this.inputQuery.reset()
       this.initializeChart();
+
     } else {
       console.error('Please enter a query');
     }
@@ -115,6 +117,7 @@ export class QueryStateComponent {
         this.isSpinning = false;
       }, 1000); 
       this.initializeChart();
+
     }
   }
 
@@ -206,6 +209,7 @@ export class QueryStateComponent {
       Y_AXIS_LABEL: this.columnNames[YPos],
       PLOT_TYPE: this.plotTypes[plotPos],
     };
+
   }
 
   private parseChartData(graphQueryOptions: GraphObject) {
@@ -213,7 +217,6 @@ export class QueryStateComponent {
       console.error('No data available');
       return;
     }
-
     const { X_AXIS_LABEL, Y_AXIS_LABEL, PLOT_TYPE } = graphQueryOptions;
     const xIndex = this.columnNames.indexOf(X_AXIS_LABEL);
     const yIndex = this.columnNames.indexOf(Y_AXIS_LABEL);
@@ -304,4 +307,14 @@ export class QueryStateComponent {
       }
     }, 0);
   }
+
+  downloadImage() {
+      if (this.chart) {
+        var a = document.createElement('a');
+        a.href = this.chart.toBase64Image()
+        a.download = 'my_file_name.png';
+        a.click()
+      }
+  }
+
 }
