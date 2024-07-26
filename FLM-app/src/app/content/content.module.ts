@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+
 
 import {Component} from '@angular/core';
 import { ContentPageComponent } from './content-page/content-page.component';
@@ -26,6 +28,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [
     ContentPageComponent,

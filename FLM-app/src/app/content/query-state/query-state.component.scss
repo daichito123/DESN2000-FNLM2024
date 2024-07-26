@@ -3,11 +3,14 @@
 }
 
 .title{
-  position: absolute;
-  top:0;
-  left: 0;
-  padding: 30px;
-  width: calc(100% - 100px);
+  position: fixed;
+  top: 0;
+  left: 15px;
+  padding: 30px 30px 0px 30px;
+  width: calc(100% - 140px);
+  margin-left: 50px;
+  z-index: 1000;
+  background-color: #222222;
 }
 
 
@@ -20,24 +23,45 @@ html {
   overflow: hidden; /* Hide scrollbars */
 }
 
-.contentColumn{
-  margin-top: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap:50px;
-  height:80vh;
+.contentColumn {
+  position: fixed;
+  top: 150px;
+  left: 90px;
+  width: calc(100% - 130px);
+  height: calc(100% - 180px);
 }
 
 .displayedQuery{
-  width:50vw;
   border-bottom: 1px solid #e5e5e5;
+  position: absolute;
+  left: 50%;
+  max-width: 80%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.chart-container {
+  position: absolute;
+  width: 60%;
+  padding-top: 30%;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 canvas {
-  width: 500px !important; 
-  height: 250px !important; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:20px;
 }
 
 
@@ -45,7 +69,11 @@ canvas {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap:15px;
+  gap: 15px;
+  position: absolute;
+  top: calc(120px + 60%);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .attachButton{
@@ -69,8 +97,6 @@ canvas {
     background-color: #01359a;
     color: #e5e5e5;
   }
-
-
 
 
   .mat-mdc-form-field {
@@ -97,4 +123,30 @@ canvas {
   
   input::placeholder {
     color: rgba(229, 229, 229, 0.3) !important;
+  }
+
+  .download-container{
+    display: flex;
+    justify-content: end;
+  }
+  
+  .downloadButton{
+    width:40px;
+    height: 40px;
+    border-radius: 11px !important;
+    position: absolute;
+    right: 0px;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .spin {
+    animation: spin 1s linear infinite;
   }
