@@ -24,7 +24,7 @@ def process_input(text):
 
     # Map the predicted labels to entity names
     label_map = {0: "O", 1: "B-PLOT_TYPE", 2: "I-PLOT_TYPE", 3: "B-X_AXIS_LABEL", 4: "I-X_AXIS_LABEL", 5: "B-Y_AXIS_LABEL", 6: "I-Y_AXIS_LABEL"}
-    predicted_labels = [label_map[label.item()] for label in predictions[0]]
+    predicted_labels = [label_map[label.numpy()] for label in predictions[0]]
 
     # Remove items with 'O' Tag
     filtered_results = [(token, label) for token, label in zip(tokens, predicted_labels) if label != 'O']
