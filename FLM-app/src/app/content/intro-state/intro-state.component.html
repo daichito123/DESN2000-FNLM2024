@@ -35,6 +35,7 @@
           matInput
           [formControl]="inputQuery"
           placeholder="Example : Plot gene expression of ..."
+          (keyup.enter)="sendQuery()"
         />
       </mat-form-field>
 

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 // To run model
 import { AutoTokenizer } from '@xenova/transformers';
 import * as tf from '@tensorflow/tfjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 type GraphObject = {
   X_AXIS_LABEL: string;
@@ -21,6 +23,9 @@ export class QueryServiceService {
   private currentFileName: string = 'No File Uploaded';
   public parsedData: any;
   public loading: boolean = false;
+
+  constructor(private http: HttpClient) { }
+
 
   getQueries(): string[] {
     return [...this.queries]; // Return a copy of the array for immutability
@@ -93,13 +98,17 @@ export class QueryServiceService {
 
   // ML functions
   
-  async mlPredict(query:string):Promise<GraphObject>{
-    
-    return {
-      X_AXIS_LABEL: 'ACOX2 (Liver)',
-      Y_AXIS_LABEL: 'KCNE4 (Heart)',
-      PLOT_TYPE: 'scatter',
-    };
+  mlPredict(query:string):Observable<any> {
+    var apiUrl = 'http://127.0.0.1:5000/process'; // Replace with your Flask endpoint URL
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { text: query };
+    return this.http.post<any>(apiUrl, body, { headers: headers });
+
+    // return {
+    //   X_AXIS_LABEL: 'ACOX2 (Liver)',
+    //   Y_AXIS_LABEL: 'KCNE4 (Heart)',
+    //   PLOT_TYPE: 'scatter',
+    // };
 
   }
 }
