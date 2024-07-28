@@ -1,26 +1,26 @@
-import torch
-from transformers import BertTokenizerFast, BertForTokenClassification
+import tensorflow as tf
+from transformers import BertTokenizerFast, TFBertForTokenClassification
 import re
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
-model_name = 'ditto123/FNLM-DESN200'
+model_name = 'GraphBot/model-tf'
 
 # Load the trained model and tokenizer
-model = BertForTokenClassification.from_pretrained(model_name)
+model = TFBertForTokenClassification.from_pretrained(model_name)
 tokenizer = BertTokenizerFast.from_pretrained(model_name)
 
 def process_input(text):
     # Tokenize the input text
-    inputs = tokenizer(text, return_tensors="pt")
-    tokens = tokenizer.convert_ids_to_tokens(inputs['input_ids'][0])
+    inputs = tokenizer(text, return_tensors="tf")
+    tokens = tokenizer.convert_ids_to_tokens(inputs['input_ids'][0].numpy())
 
     # Get model predictions
-    outputs = model(**inputs)
+    outputs = model(inputs)
     logits = outputs.logits
 
     # Convert logits to predicted labels
-    predictions = torch.argmax(logits, dim=-1)
+    predictions = tf.argmax(logits, axis=-1)
 
     # Map the predicted labels to entity names
     label_map = {0: "O", 1: "B-PLOT_TYPE", 2: "I-PLOT_TYPE", 3: "B-X_AXIS_LABEL", 4: "I-X_AXIS_LABEL", 5: "B-Y_AXIS_LABEL", 6: "I-Y_AXIS_LABEL"}
