@@ -1,6 +1,10 @@
 <div class="sideBar" [ngClass]="{ expanded: isExpanded }">
-  <hr />
-  <button mat-button (click)="toggleWidth()">
+  <hr class="divider" />
+  <button mat-button (click)="openDialog()">
+    <mat-icon fontIcon="help"></mat-icon>
+    <span *ngIf="isExpanded" style="color: #e5e5e5 !important;">Help</span>
+  </button>
+  <button mat-button class="spinner" (click)="toggleWidth()">
     <mat-icon fontIcon="arrow_forward_ios"></mat-icon>
   </button>
 </div>
