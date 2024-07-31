@@ -307,7 +307,7 @@ export class QueryStateComponent {
       }
     }, 0);
   }
-
+  /*
   downloadImage() {
       if (this.chart) {
         var a = document.createElement('a');
@@ -316,5 +316,5 @@ export class QueryStateComponent {
         a.click()
       }
   }
-
+  */
 }

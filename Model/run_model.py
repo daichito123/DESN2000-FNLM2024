@@ -1,9 +1,12 @@
+# Run cmd flask --app run_model run to activate
 import torch
 from transformers import BertTokenizerFast, BertForTokenClassification
 import re
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 model_name = 'ditto123/FNLM-DESN200'
 
 # Load the trained model and tokenizer
