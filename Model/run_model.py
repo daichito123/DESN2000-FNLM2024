@@ -7,7 +7,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-model_name = 'ditto123/FNLM-DESN200'
+model_name = 'GraphBot/model-pt'
 
 # Load the trained model and tokenizer
 model = BertForTokenClassification.from_pretrained(model_name)

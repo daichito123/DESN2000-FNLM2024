@@ -19,10 +19,10 @@ from f_vars import (
 )
 from create_token_object import create_token_object
 
-def generate_files(w2d, str_in, vars, queue, batch_size=1000):
+def generate_files(w2d, str_in, vars, queue, batch_size=3000):
     txt_batch = []
     json_batch = []
-    for i in range(100):
+    for i in range(12000):
         combination = []
         # w2d = words 2 data i.e. from tag to data
         # Create combination of words
